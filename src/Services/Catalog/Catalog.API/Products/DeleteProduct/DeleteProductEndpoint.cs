@@ -8,18 +8,11 @@ namespace Catalog.API.Products.DeleteProduct
         {
             app.MapDelete("/products/{productId}", async (Guid productId, ISender sender) =>
             {
-                try
-                {
-                    var deletedProduct = await sender.Send(new DeleteProductCommand(productId));
+                var deletedProduct = await sender.Send(new DeleteProductCommand(productId));
 
-                    var response = deletedProduct.Adapt<DeleteProductResponse>();
+                var response = deletedProduct.Adapt<DeleteProductResponse>();
 
-                    return Results.Ok(response);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    return Results.NotFound(new { error = ex.Message });
-                }
+                return Results.Ok(response);
             })
             .WithName("DeleteProduct")
             .Produces<DeleteProductResponse>(StatusCodes.Status200OK)

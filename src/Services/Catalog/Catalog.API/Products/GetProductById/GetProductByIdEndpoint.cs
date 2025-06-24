@@ -8,16 +8,9 @@ namespace Catalog.API.Products.GetProductById
         {
             app.MapGet("products/{productId}", async (Guid productId, ISender sender) =>
             {
-                try
-                {
-                    var result = await sender.Send(new GetProductByIdQuery(productId));
-                    var response = result.Adapt<GetProductByIdResponse>();
-                    return Results.Ok(response.Product);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    return Results.NotFound(new { error = ex.Message });
-                }
+                var result = await sender.Send(new GetProductByIdQuery(productId));
+                var response = result.Adapt<GetProductByIdResponse>();
+                return Results.Ok(response.Product);
             })
             .WithName("GetProduct")
             .Produces<GetProductByIdResponse>(StatusCodes.Status200OK)

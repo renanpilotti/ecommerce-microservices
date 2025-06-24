@@ -9,7 +9,7 @@ namespace Catalog.API.Products.DeleteProduct
         {
             var product = await session.LoadAsync<Product>(command.ProductId, cancellationToken);
 
-            if (product == null) throw new KeyNotFoundException($"Product with ID '{command.ProductId}' was not found.");
+            if (product == null) throw new NotFoundException("Product", command.ProductId);
 
             session.Delete<Product>(command.ProductId);
             await session.SaveChangesAsync(cancellationToken);

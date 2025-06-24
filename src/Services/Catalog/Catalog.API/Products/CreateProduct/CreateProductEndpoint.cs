@@ -25,6 +25,7 @@
             })
             .WithName("CreateProduct")
             .Produces<CreateProductResponse>(StatusCodes.Status201Created)
+            .Produces<CreateProductResponse>(StatusCodes.Status400BadRequest)
             .WithSummary("Create product")
             .WithDescription("Receives a valid product payload and persists a new product entity.");
         }

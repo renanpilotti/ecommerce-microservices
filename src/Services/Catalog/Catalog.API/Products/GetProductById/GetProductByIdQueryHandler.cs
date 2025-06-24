@@ -9,8 +9,8 @@
             var product = await session.LoadAsync<Product>(query.ProductId, cancellationToken); 
 
             if (product == null)
-                throw new KeyNotFoundException($"Product with ID '{query.ProductId}' was not found.");
-            
+                throw new NotFoundException("Product", query.ProductId);
+
             return new GetProductByIdQueryResult(product);
         }
     }
